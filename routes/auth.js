@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User')
+const Users = require('../models/User')
 const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -13,7 +13,68 @@ const signToken = (id) => {
     }, `${process.env.SECRET}`, { expiresIn: '1h' })
 }
 
+// Authorization through passport
 
+
+// For registering User
+router.post('/register', async (req, res) => {
+    const { username, password, email, role } = req.body
+    Users.findOne({ email }, (err, emailPresent) => {
+        if (err) {
+            //console.log('Error ' + err)
+            res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+        }
+        if (emailPresent)
+            res.status(400).json({ message: { msg: "email is already taken", msgError: true } });
+        else {
+            const newUser = new Users({ username, password, email, role });
+            newUser.save(err => {
+                if (err) {
+                    //console.log('Error ' + err)
+                    res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+                }
+                else
+                    res.status(201).json({ message: { msg: "Account successfully created", msgError: false } });
+            })
+        }
+    });
+
+})
+
+// For Loginnig in User
+// User should not be able to go back once authenticated
+router.post('/login', (req, res) => {
+
+    const { email, password } = req.body
+
+    Users.findOne({ email }, function (err, user) {
+        if (err) {
+            //console.log('Error ' + err)
+            res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+        }
+        if (!user) {
+            res.status(400).json({ message: { msg: "Invalid Email", msgError: true } });
+        }
+        else {
+            bcrypt.compare(password, user.password, function (err, validate) {
+                if (err) {
+                    //console.log('Error ' + err)
+                    res.status(500).json({ message: { msg: "Error has occured in bcrypt", msgError: true } });
+                }
+                if (!validate) {
+                    res.status(400).json({ message: { msg: "Invalid Password", msgError: true } });
+                }
+                else {
+                    // Logged in 
+                    const token = signToken(user._id)
+                    // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
+                    res.cookie('access_token', token, { httpOnly: true, sameSite: true })
+                    res.status(200).json({ user, isAuthenticated: true, message: { msgError: false } })
+                }
+            })
+        }
+    })
+})
 
 // Logout Account
 router.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
