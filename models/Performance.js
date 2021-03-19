@@ -10,6 +10,4 @@ const PerformanceSchema = new mongoose.Schema({
     }
 });
 
-const Performance = mongoose.model('Performance', performanceSchema);
-
-export default performance;
+export default mongoose.model('Performance', performanceSchema);

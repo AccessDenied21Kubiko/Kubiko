@@ -16,6 +16,10 @@ Education is a constitutional right of every citizen that prepares an individual
 
 ## To run it
 
+Make a .env file, inside .env file:
+
+SECRET=*Any secret word*
+
 ```sh
 $ npm i
 ```
