@@ -29,3 +29,28 @@ For Development purpose, install nodemon
 ```sh
 $ npm start
 ```
+
+### Routes
+
+- POST login Logins student/teacher
+- POST register Registers as student/teacher
+- GET logout Logs out the user
+
+### STUDENTS
+
+- GET /course Get all courses for a pirticular student (req.user)
+- POST /join Join course with course code 
+- GET /quiz/:courseId Show Quizzes in the Course room
+- DELETE /course/:courseId leave the course
+- POST /quiz/:quizId submit the quiz (**Important**)
+- GET /marks/:quizId Get the results of the quiz
+- GET /course/overall Gets overall marks of all attempted quizzes in till now
+
+### TEACHERS
+
+- POST /course creates Course room
+- GET /students/:courseId Gets all student in the course
+- GET /course/overall/:userId Gets overall marks of the student
+- POST /createQuiz creates a new quiz
+- POST /question creates a new Question
+- DELETE /course Deletes the course for all student

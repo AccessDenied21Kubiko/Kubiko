@@ -18,7 +18,7 @@ const signToken = (id) => {
 
 // For registering User
 router.post('/register', async (req, res) => {
-    const { username, password, email, role } = req.body
+    const { name, password, email, role } = req.body
     Users.findOne({ email }, (err, emailPresent) => {
         if (err) {
             //console.log('Error ' + err)
@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         if (emailPresent)
             res.status(400).json({ message: { msg: "email is already taken", msgError: true } });
         else {
-            const newUser = new Users({ username, password, email, role });
+            const newUser = new Users({ name, password, email, role });
             newUser.save(err => {
                 if (err) {
                     //console.log('Error ' + err)
