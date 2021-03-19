@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, min: 0, max: 15, default: "", required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Courses' }],
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
     role: {
         type: String,
         enum: ['teacher', 'student'],
