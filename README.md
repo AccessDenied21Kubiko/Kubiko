@@ -35,6 +35,7 @@ $ npm start
 - [x] POST /user/login Logins student/teacher
 - [x] POST /user/register Registers as student/teacher
 - [x] GET /user/logout Logs out the user
+- [x] GET /user/c/isAuthenticated checks if the user is authenticated or not (**Important**)
 
 ### STUDENTS
 
