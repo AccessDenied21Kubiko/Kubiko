@@ -6,6 +6,12 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
 const auth = require('./routes/auth');
+const student = require('./routes/student');
+const sensei = require('./routes/sensei');
+const passport = require('passport');
+const passportConfig = require('./routes/passport')
+const isSensei = require('./isSensei')
+const isStudent = require('./isStudent')
 
 mongoose.connect(`mongodb://localhost/QuizHack`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
     console.log('Successfully connected to Database!!');
@@ -16,8 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
 
-// app.use('/movies', movies)
 app.use('/user', auth)
+app.use('/students', passport.authenticate('jwt', { session: false }), isStudent, student)
+app.use('/teachers', passport.authenticate('jwt', { session: false }), isSensei, sensei)
+
 
 const port = process.env.PORT || 3000
 
