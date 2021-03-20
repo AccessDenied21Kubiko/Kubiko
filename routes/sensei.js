@@ -60,6 +60,8 @@ router.post("/createQuiz/:courseId", async (req, res) => {
 
     const quiz = await (await Quiz.create(quizModel)).save()
 
+    // Insert in course, .... not necessary
+
     res.send({ quiz });
 })
 
@@ -73,6 +75,8 @@ router.post("/question/:quizId", async (req, res) => {
     quiz.questions.push(question._id);
 
     await quiz.save();
+
+    res.send({ quiz });
 })
 
 module.exports = router;

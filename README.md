@@ -40,7 +40,7 @@ $ npm start
 
 - [x] GET /students/course Get all courses for a pirticular student (req.user)
 - [x] POST /students/join Join course with course code 
-- GET /students/quiz/:courseId Show Quizzes in the Course room
+- [x] GET /students/quiz/:courseId Show Quizzes in the Course room
 - [x] DELETE /students/course/:courseId leave the course
 - POST /students/quiz/:quizId submit the quiz (**Important**)
 - GET /students/marks/:quizId Get the results of the quiz
