@@ -45,9 +45,30 @@ router.post("/join", async (req, res) => {
 
     } catch (err) {
         console.log(err)
-        res.send({ msg: "internal Error" })
+        res.send({ msg: "Internal Error" })
     }
 
 })
+
+router.delete("/course/:courseId", async (req, res) => {
+
+    const user = await User.findById(req.user._id)
+
+    user.courses.filter(c => c != req.params.courseId)
+    user.save()
+
+    const course = await Course.findById(req.params.courseId)
+
+    course.students.filter(s => s != req.user._id)
+    course.save()
+
+    res.send({ user })
+
+})
+
+
+router.post("/quiz/:quizId", async (req, res) => {
+    res.send({ msg: "Work on Progress" });
+});
 
 module.exports = router;

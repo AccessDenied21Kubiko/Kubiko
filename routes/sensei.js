@@ -1,5 +1,7 @@
 const express = require('express');
 const Course = require('../models/Course');
+const Question = require('../models/Question');
+const Quiz = require('../models/Quiz');
 const User = require('../models/User');
 const router = express.Router();
 
@@ -39,11 +41,38 @@ router.get("/students/", async (req, res) => {
     res.send({ students: course });
 })
 
-router.delete("/dismantle/:courseId", async (req, res) => {
+router.delete("/:courseId", async (req, res) => {
 
-    await Course.findByIdAndDelete(courseId)
+    await Course.findByIdAndDelete(req.params.courseId)
     res.send({ msg: "Deleted the course", status: true })
 
+})
+
+// Teacher will create quiz over here
+router.post("/createQuiz/:courseId", async (req, res) => {
+    const { title, description } = req.body
+
+    const quizModel = {
+        title,
+        description,
+        courseId: req.params.courseId
+    }
+
+    const quiz = await (await Quiz.create(quizModel)).save()
+
+    res.send({ quiz });
+})
+
+// Teacher will add question here
+router.post("/question/:quizId", async (req, res) => {
+
+    const question = await (await Question.create(req.body)).save()
+
+    const quiz = await Quiz.findById(req.params.quizId);
+
+    quiz.questions.push(question._id);
+
+    await quiz.save();
 })
 
 module.exports = router;

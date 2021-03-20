@@ -41,7 +41,7 @@ $ npm start
 - [x] GET /students/course Get all courses for a pirticular student (req.user)
 - [x] POST /students/join Join course with course code 
 - GET /students/quiz/:courseId Show Quizzes in the Course room
-- DELETE /students/course/:courseId leave the course
+- [x] DELETE /students/course/:courseId leave the course
 - POST /students/quiz/:quizId submit the quiz (**Important**)
 - GET /students/marks/:quizId Get the results of the quiz
 - GET /students/course/overall Gets overall marks of all attempted quizzes in till now
@@ -52,6 +52,6 @@ $ npm start
 - [x] GET /sensei/course gets all created course
 - [x] GET /sensei/students/:courseId Gets all student in the course
 - GET /sensei/course/overall/:userId Gets overall marks of the student
-- POST /sensei/createQuiz creates a new quiz (**Important**)
-- POST /sensei/question creates a new Question
-- DELETE /sensei/course Deletes the course for all student
+- [x] POST /sensei/createQuiz/:courseId creates a new quiz (**Important**)
+- [x] POST /sensei/question creates a new Question
+- [x] DELETE /sensei/:courseId Deletes the course for all student
