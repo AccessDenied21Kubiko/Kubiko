@@ -1,6 +1,8 @@
 const express = require('express');
 const Course = require('../models/Course');
+const Performance = require('../models/Performance');
 const Quiz = require('../models/Quiz');
+const Result = require('../models/Result');
 const User = require('../models/User');
 const router = express.Router();
 
@@ -93,11 +95,45 @@ router.post("/quiz/:quizId", async (req, res) => {
         else {
             // question is an array of questions
             const questions = document.questions;
-
+            // will contain the answers as well
             res.send({ questions })
         }
     })
 
 });
+
+router.post("/marks/:quizId/:courseId", async (res, req) => {
+
+    const { quizMarks } = req.body
+
+    const resultModel = {
+        quizId: req.params.quizId,
+        userId: req.user._id,
+        quizMarks
+    }
+
+    const result = await (await Result.create(resultModel)).save()
+
+    const performance = await Performance.findOne({ UserId: req.user._id, CourseId: req.params.courseId })
+
+    performance.totalQuiz += 1
+
+    const stats = quizMarks + performance.totalmarks
+
+    performance.totalmarks = (stats / performance.totalQuiz)
+
+    await performance.save()
+
+    res.send({ result })
+
+})
+
+router.get("/class/overall/:courseId", async (req, res) => {
+
+    const performance = await Performance.findOne({ UserId: req.user._id, CourseId: req.params.courseId })
+
+    res.send({ total: performance.totalmarks })
+
+})
 
 module.exports = router;

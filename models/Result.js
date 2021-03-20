@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ResultSchema = new mongoose.Schema({
 
-    courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
+    quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: true },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     quizMarks: { type: Number, required: true }
 

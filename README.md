@@ -42,16 +42,16 @@ $ npm start
 - [x] POST /students/join Join course with course code 
 - [x] GET /students/quiz/:courseId Show Quizzes in the Course room
 - [x] DELETE /students/course/:courseId leave the course
-- POST /students/quiz/:quizId submit the quiz (**Important**)
-- GET /students/marks/:quizId Get the results of the quiz
-- GET /students/course/overall Gets overall marks of all attempted quizzes in till now
+- [x] POST /students/quiz/:quizId submit the quiz (**Important**)
+- [x] POST /students/marks/:quizId POST the results of the quiz to the backend from REACT
+- [x] GET /students/class/overall/:courseId Gets overall marks of all attempted quizzes in till now
 
 ### TEACHERS
 
-- [x] POST /sensei/course creates Course room
-- [x] GET /sensei/course gets all created course
-- [x] GET /sensei/students/:courseId Gets all student in the course
-- GET /sensei/course/overall/:userId Gets overall marks of the student
-- [x] POST /sensei/createQuiz/:courseId creates a new quiz (**Important**)
-- [x] POST /sensei/question creates a new Question
-- [x] DELETE /sensei/:courseId Deletes the course for all student
+- [x] POST /teachers/course creates Course room
+- [x] GET /teachers/course gets all created course
+- [x] GET /teachers/students/:courseId Gets all student in the course
+- [x] GET /teachers/student/overall/:userId/:CourseId Gets overall marks of the student
+- [x] POST /teachers/createQuiz/:courseId creates a new quiz (**Important**)
+- [x] POST /teachers/question creates a new Question
+- [x] DELETE /teachers/:courseId Deletes the course for all student

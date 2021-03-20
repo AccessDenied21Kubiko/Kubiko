@@ -1,13 +1,10 @@
-import mongoose from 'mongoose';
-import Schema from 'mongoose';
+const mongoose = require('mongoose');
 
 const PerformanceSchema = new mongoose.Schema({
     UserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     CourseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
-    totalmarks: {
-        type: number,
-        required: true
-    }
+    totalmarks: { type: Number, required: true, default: 0 },
+    totalQuiz: { type: Number, required: true, default: 0 }
 });
 
-export default mongoose.model('Performance', performanceSchema);
+module.exports = mongoose.model('Performance', PerformanceSchema);

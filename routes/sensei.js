@@ -1,5 +1,6 @@
 const express = require('express');
 const Course = require('../models/Course');
+const { default: Performance } = require('../models/Performance');
 const Question = require('../models/Question');
 const Quiz = require('../models/Quiz');
 const User = require('../models/User');
@@ -30,7 +31,7 @@ router.get("/course", async (req, res) => {
 })
 
 // Gets all student in the course
-router.get("/students/", async (req, res) => {
+router.get("/students", async (req, res) => {
 
     const courseModel = await Course.find({ creator: req.user._id })
 
@@ -77,6 +78,17 @@ router.post("/question/:quizId", async (req, res) => {
     await quiz.save();
 
     res.send({ quiz });
+})
+
+router.get("/student/overall/:userId/:CourseId", async (req, res) => {
+
+    const performance = await Performance.findOne({ UserId: req.params.userId, CourseId: req.params.courseId })
+
+    // totalmarks = sum of all quizes results/(total no. of quiz) => decimal
+
+    res.send({ performance: performance.totalmarks })
+
+
 })
 
 module.exports = router;
