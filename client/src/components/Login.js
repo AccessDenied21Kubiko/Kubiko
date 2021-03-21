@@ -1,8 +1,38 @@
-import React from 'react'
+import React, { useState, useContext } from 'react';
+import AuthService from '../Services/AuthService';
 import loginSvg from '../Images/login.svg'
+import { AuthContext } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
 
-function Login() {
+const Login = (props) => {
+
+    const [user, setUser] = useState({ email: "", password: "" })
+    const authContext = useContext(AuthContext);
+
+    const onChange = e => {
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+
+    const Submit = e => {
+        e.preventDefault()
+        AuthService.login(user).then(data => {
+
+            const { message } = data
+            if (!message.msgError) {
+                const { user, isAuthenticated } = data
+
+                authContext.setUser(user)
+                authContext.setIsAuthenticated(isAuthenticated)
+                // Kindda like redirect page
+                props.history.push('./');
+
+            } else {
+
+            }
+        })
+    }
+
+
     return (
         <div className="clouds min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
             <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
