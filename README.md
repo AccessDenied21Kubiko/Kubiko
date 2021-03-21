@@ -27,8 +27,38 @@ $ npm i
 For Development purpose, install nodemon
 
 ```sh
+$ npm i -D nodemon
+```
+
+```sh
 $ npm start
 ```
+Server side development is completed and it runs on port 8000
+
+# Running Client Side
+
+```
+$ cd client
+
+$ npm install or npm i
+
+npm start
+```
+
+REACT will run locally on port 3000
+
+Client side is not made completely, and has discrete pages for now
+
+
+### To Run it (Recommend)
+
+As server side is completly done, applications like Postman can be used to test and run the server endpoints, and it is recommended by us, as the user interface is not yet fully made.
+
+Enjoy!
+
+## Things That Got Done
+
+## Completed Server Side
 
 ### Routes
 
@@ -56,3 +86,19 @@ $ npm start
 - [x] POST /teachers/createQuiz/:courseId creates a new quiz (**Important**)
 - [x] POST /teachers/question creates a new Question
 - [x] DELETE /teachers/:courseId Deletes the course for all student
+
+## Client Side
+
+- [x] Context
+- [x] Authorization Services
+
+#### Pages and components
+
+- [x] Landing page
+- [] NavBar (on authentication state change part is left)
+- [x] Login Page
+- [x] Register Page
+- [] Student dashboard (static for now)
+- [] Quiz creator (static for now)
+- [] Quiz attempt (static for now)
+
